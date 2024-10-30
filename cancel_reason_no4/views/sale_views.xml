@@ -1,0 +1,35 @@
+<odoo>
+    <record id="sale_order_inhe_form" model="ir.ui.view">
+      <field name="name">sale.order.inhe.form</field>
+      <field name="model">sale.order</field>
+      <field name="inherit_id" ref="sale.view_order_form" />
+      <field name="arch" type="xml">
+        <xpath expr="//button[@name='action_cancel']" position="replace">
+          <button name="action_cancel_order" type="object" string="Cancel" attrs="{'invisible': ['|', ('state', 'not in', ['draft', 'sent','sale']), ('id', '=', False)]}"/>
+        </xpath>
+        <xpath expr="//group[@name='order_details']" position="inside">
+          <field name="cancel_reason_id" attrs="{'invisible': [('cancel_reason_id', '=', False)]}"/>
+        </xpath>
+      </field>
+    </record>
+    <record id="sale_quotation_inhe_tree" model="ir.ui.view">
+      <field name="name">sale.order.quotation.inhe.tree</field>
+      <field name="model">sale.order</field>
+      <field name="inherit_id" ref="sale.view_quotation_tree" />
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='currency_id']" position="after">
+          <field name="cancel_reason_id"/>
+        </xpath>
+      </field>
+    </record>
+    <record id="sale_order_inhe_tree" model="ir.ui.view">
+      <field name="name">sale.order.inhe.tree</field>
+      <field name="model">sale.order</field>
+      <field name="inherit_id" ref="sale.view_order_tree" />
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='state']" position="after">
+          <field name="cancel_reason_id"/>
+        </xpath>
+      </field>
+    </record>
+</odoo>

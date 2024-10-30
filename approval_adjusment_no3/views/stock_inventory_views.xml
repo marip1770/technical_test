@@ -1,0 +1,24 @@
+<odoo>
+    <record id="stock_inventory_inhe_form" model="ir.ui.view">
+      <field name="name">stock.inventory.inhe.form</field>
+      <field name="model">stock.inventory</field>
+      <field name="inherit_id" ref="stock.view_inventory_form" />
+      <field name="arch" type="xml">
+        <xpath expr="//header" position="inside">
+          <button name="action_request_approval" states="draft" string="Request Approval" type="object" class="oe_highlight" groups="stock.group_stock_user"/>
+          <button name="action_approve" states="waiting" string="Approve" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
+          <button name="action_reject" states="waiting" string="Reject" type="object" groups="stock.group_stock_manager"/>
+          <button name="action_cancel_to_draft" states="rejected" string="Cancel" type="object" class="oe_highlight" groups="stock.group_stock_user"/>
+        </xpath>
+        <xpath expr="//field[@name='state']" position="attributes">
+          <attribute name="statusbar_visible">draft,waiting,confirm,done</attribute>
+        </xpath>
+        <xpath expr="//button[@name='action_start']" position="attributes">
+          <attribute name="states">approved</attribute>
+        </xpath>
+        <xpath expr="//button[@name='action_print']" position="attributes">
+          <attribute name="attrs">{'invisible': [('state', 'not in', ('confirm','done'))]}</attribute>
+        </xpath>
+      </field>
+    </record>
+</odoo>
